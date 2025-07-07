@@ -12,6 +12,9 @@ class SubTaskGenerationResource(Resource):
     def post(self, id):
         """
             Generate sub-tasks for a parent task using AI
+            Click on the "Try it out" button to see the response.
+            Enter the task ID in the input field and click on the "Execute" button to see the response.
+            This API call will generate sub-tasks for a parent task using AI.
         """
         try:
             subtask_service = SubTaskService()
@@ -71,6 +74,17 @@ class SubTaskListResource(Resource):
     def get(self, id):
         """
             Get all sub-tasks for a parent task
+            Click on the "Try it out" button to see the response.
+            Enter the task ID in the input field and click on the "Execute" button to see the response.
+            This API call will get all the sub-tasks for a parent task.
+            This API call will return the parent task ID, the sub-tasks and the total count of sub-tasks.
+            This API call will return the sub-tasks in the following format:
+            {
+                "parent_task_id": "123",
+                "subtasks": [
+                    {
+                        "id": "123",
+                        "title": "Sub-task 1",
         """
         try:
             subtask_service = SubTaskService()
@@ -107,6 +121,13 @@ class SubTaskParentResource(Resource):
     def get(self, id):
         """
             Get the parent task for a sub-task
+            Click on the "Try it out" button to see the response.
+            Enter the sub-task ID in the input field and click on the "Execute" button to see the response.
+            This API call will get the parent task for a sub-task.
+            This API call will return the parent task ID and the parent task title.
+            This API call will return the parent task in the following format:
+            {
+                "subtask_id": "123",
         """
         try:
             subtask_service = SubTaskService()

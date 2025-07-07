@@ -1,11 +1,11 @@
 from log import logger
 from datetime import datetime
 from flask import make_response, jsonify
-from config_mapping.mapping import SuccessResponse, ErrorResponse
 from constants import TASK_HANDLER_COLLECTION
 from flask_restx import Namespace, Resource
 from mongodb.mongo_template import MongoTemplate
 from services.subtask_service import SubTaskService
+from config_mapping.mapping import SuccessResponse, ErrorResponse
 
 
 api = Namespace("resollect/tasks")
@@ -15,7 +15,12 @@ mongo_client = MongoTemplate.create_moongo_client()
 class TaskCompleteResource(Resource):
     def post(self, id):
         """
-            Mark task as completed
+        Mark task as completed.
+        Args:
+            id (str): The unique identifier of the task. Which is the task ID and is a string.
+            ID exists in the database.
+            ID is a valid task ID.
+            ID is a valid task ID.
         """
         try:
             task_collection = mongo_client['brs-db'][TASK_HANDLER_COLLECTION]

@@ -20,8 +20,8 @@ def configure_api(application):
     api = Api(
         application,
         version="0.1",
-        title="Book Recommendation System",
-        description="""This app is used to get and put new books as per the intrest.""",
+        title="Task Generator System",
+        description="Task Generator System",
     )
     register_routes(api)
 

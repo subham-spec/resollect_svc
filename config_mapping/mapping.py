@@ -9,10 +9,35 @@ class TaskPostCall:
     title: str
     inputStr: str
     deadline: datetime
-    requestId: Optional[str] = field(default_factory=lambda: str(uuid.uuid4()))
+    requestId: Optional[str] = str(uuid.uuid4())
 
     def to_dict(self):
         """Converts the dataclass to a dictonary for easy serialization"""
+        return asdict(self)
+    
+@dataclass
+class TaskDetailQuery:
+    id: str
+    
+    def to_dict(self):
+        return asdict(self)
+
+@dataclass
+class TaskUpdateCall:
+    title: Optional[str] = None
+    inputStr: Optional[str] = None
+    deadline: Optional[datetime] = None
+    
+    def to_dict(self):
+        return asdict(self)
+    
+@dataclass
+class SubTaskPostCall:
+    parent_task_id: str
+    title: str
+    deadline: datetime
+
+    def to_dict(self):
         return asdict(self)
 
 @dataclass

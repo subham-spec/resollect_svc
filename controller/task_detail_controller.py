@@ -1,12 +1,14 @@
 from log import logger
 from datetime import datetime
 from flask import request, make_response, jsonify
-from config_mapping.mapping import SuccessResponse, ErrorResponse
+from flask_accepts import accepts
+from config_mapping.mapping import SuccessResponse, ErrorResponse, TaskUpdateCall
 from constants import TASK_HANDLER_COLLECTION
 from flask_restx import Namespace, Resource
 from mongodb.mongo_template import MongoTemplate
 from services.tag_service import TagService
 from services.subtask_service import SubTaskService
+from config_mapping import get_schema
 
 
 api = Namespace("resollect/tasks")
@@ -17,7 +19,12 @@ mongo_client = MongoTemplate.create_moongo_client()
 class TaskDetailResource(Resource):
     def get(self, id):
         """
-            Get single task by ID
+        Retrieve a single task by its ID, including tags and sub-tasks if applicable.
+        Args:
+            id (str): The unique identifier of the task. Which is the task ID and is a string.
+            ID exists in the database.
+            ID is a valid task ID.
+            ID is a valid task ID.
         """
         try:
             task_collection = mongo_client['brs-db'][TASK_HANDLER_COLLECTION]
@@ -76,9 +83,16 @@ class TaskDetailResource(Resource):
             )
             return make_response(jsonify(error_response.to_dict()), 500)
 
+    @accepts(schema=get_schema(TaskUpdateCall), api=api, use_swagger=True)
     def put(self, id):
         """
-            Update task by ID
+        Update a task by its ID.
+        Args:
+            id (str): The unique identifier of the task.
+        Request Body:
+            JSON object with fields to update (e.g., title, description, status, etc.).
+        Returns:
+            JSON response indicating success or failure of the update operation.
         """
         try:
             task_collection = mongo_client['brs-db'][TASK_HANDLER_COLLECTION]
@@ -131,9 +145,15 @@ class TaskDetailResource(Resource):
             )
             return make_response(jsonify(error_response.to_dict()), 500)
 
+
     def delete(self, id):
         """
-            Delete task by ID
+        Delete a task by its ID.
+        Args:
+            id (str): The unique identifier of the task. Which is the task ID and is a string.
+            ID exists in the database.
+            ID is a valid task ID.
+            ID is a valid task ID.
         """
         try:
             task_collection = mongo_client['brs-db'][TASK_HANDLER_COLLECTION]

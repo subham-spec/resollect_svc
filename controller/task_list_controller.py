@@ -21,14 +21,12 @@ api = Namespace("resollect/tasks")
 
 @api.route("/task")
 class TaskListResource(Resource):
+    @accepts(api=api, use_swagger=True)
     def get(self):
         """
-            List all tasks with optional filtering and sorting
-            Query parameters:
-            - ordering: Sort order (e.g., "-priority", "created_at", "-deadline")
-            - priority: Filter by priority (e.g., "Critical", "High", "Medium", "Low")
-            - status: Filter by status (e.g., "Pending", "In Progress", "Completed")
-            - completed: Filter by completion status (true/false)
+            List all tasks, whatever are there in the database and created so far.
+            Click on the "Try it out" button to see the response.
+            Click on the "Execute" button to see the response.
         """
         try:
             # Get query parameters - try flask-accepts first, fallback to manual parsing
@@ -111,10 +109,12 @@ class TaskListResource(Resource):
             )
             return make_response(jsonify(error_response.to_dict()), 500)
 
-    @accepts(schema=get_schema(TaskPostCall), api=api, use_swagger=False)
+    @accepts(schema=get_schema(TaskPostCall), api=api, use_swagger=True)
     def post(self):
         """
             This API call will create a new task to check its priority.
+            Create a new task with the given title, description and deadline. [title, description, deadline] You only need to provide the title, description and deadline.
+            Click on the "Execute" button to see the response.
         """
         mapping_request: TaskPostCall = request.parsed_obj
         request_id = mapping_request.requestId if mapping_request.requestId and len(mapping_request.requestId) > 0 else str(uuid.uuid4())
@@ -160,9 +160,9 @@ class TaskListResource(Resource):
             return make_response(jsonify(error_response.to_dict()), 401)
 
 
-@api.route('/debug/ids')
-class TaskDebugResource(Resource):
-    def get(self):
+# @api.route('/debug/ids')
+# class TaskDebugResource(Resource):
+#     def get(self):
         """
             Debug endpoint to list all task IDs
         """

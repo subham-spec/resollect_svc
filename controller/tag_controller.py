@@ -12,6 +12,8 @@ class TagListResource(Resource):
     def get(self):
         """
             List all available tags
+            This is a list of all the tags that are available in the database.
+            This enpoint is not developed yet.
         """
         try:
             tag_service = TagService()
