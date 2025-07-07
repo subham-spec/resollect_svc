@@ -12,7 +12,7 @@ def create_app():
     setup_logger()
     CORS(application, supports_credentials=True)
     health = HealthCheck()
-    # application.add_url_rule("/resollect_application/healthCheck", view_func=health.run_check())
+    application.add_url_rule("/resollect_application/healthCheck", view_func=health.run_check)
     return application
 
 
