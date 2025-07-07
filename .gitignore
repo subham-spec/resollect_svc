@@ -79,6 +79,3 @@ Thumbs.db
 # Custom logs
 resollect_application_error.log
 resollect_application_info.log
-
-# Ignore local config
-config.py 
