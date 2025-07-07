@@ -1,9 +1,11 @@
 import re
+from dotenv import load_dotenv
+load_dotenv()
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="nebius",
-    api_key='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',
+    api_key=os.getenv("HUGGING_FACE_API_KEY", ''),
 )
 
 def call_hugging_face(input):
