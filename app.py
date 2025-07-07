@@ -1,7 +1,7 @@
 from flask import Flask
 from log import logger, setup_logger
 from flask_cors import CORS
-from healthcheck import HealthCheck
+# from healthcheck import HealthCheck
 from flask_restx import Api
 from controller import register_routes
 
@@ -11,7 +11,7 @@ application = Flask(__name__)
 def create_app():    
     setup_logger()
     CORS(application, supports_credentials=True)
-    health = HealthCheck()
+    # health = HealthCheck()
     # application.add_url_rule("/resollect_application/healthCheck", view_func=health.run_check)
     return application
 
